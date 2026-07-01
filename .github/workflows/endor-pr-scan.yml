@@ -12,6 +12,11 @@ on:
         required: false
         type: string
         default: ''
+      scan_sast:
+        description: 'Enable SAST scanning'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   pr-scan:
@@ -34,6 +39,7 @@ jobs:
           github_token: ${{ github.token }}
           scan_dependencies: true
           scan_secrets: true
+          scan_sast: ${{ inputs.scan_sast }}
           scan_github_actions: false
           scan_summary_output_type: 'table'
           additional_args: ${{ inputs.languages != '' && format('--languages={0}', inputs.languages) || '' }}
